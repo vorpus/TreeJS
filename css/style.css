@@ -1,0 +1,32 @@
+strong.r {
+  color:red;
+}
+
+.val-to-add {
+  width: 100px;
+  border: 1px solid black;
+  padding: 5px;
+}
+
+.val-to-add-submit {
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  background: lightblue;
+}
+
+.the-world {
+  width: 500px;
+  margin: 20px auto;
+  font-family: sans-serif;
+  font-size: 20px;
+}
+
+.forest {
+  padding: 10px;
+  background: lightblue;
+  width: 500px;
+  margin: 10px auto;
+  text-align: center;
+  border-radius: 5px;
+}
