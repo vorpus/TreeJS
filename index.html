@@ -14,11 +14,37 @@
   </head>
   <body>
     <div class="the-world">
-        <form class="add-node">
-          <input class="val-to-add" type="number" name="" value="">
-          <input class="val-to-add-submit" type="submit" name="" value="Add">
-        </form>
+      <div class="all-forms group">
+        <div class="node-form">
+          <form class="add-node">
+            <input class="val-to val-to-add" type="number" name="" value="">
+            <input class="val-to-submit val-to-add-submit" type="submit" name="" value="Add">
+          </form>
+        </div>
+        <div class="node-form">
+          <form class="delete-node hidden">
+            <input class="val-to val-to-delete" type="number" name="" value="">
+            <input class="val-to-submit val-to-delete-submit" type="submit" name="" value="Delete">
+          </form>
+        </div>
+
+        <div class="clear button">
+          Clear
+        </div>
+
+        <div class="bst-toggle button">
+          <div class="bst-display bst-btn hidden">
+            Binary Search Tree
+          </div>
+          <div class="bst-display rbt-btn">
+            Red/Black Tree
+          </div>
+        </div>
+      </div>
+
+
       <div class="forest"></div>
+      <div class="forest-diagram"></div>
     </div>
 
   </body>

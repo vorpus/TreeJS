@@ -48,24 +48,65 @@
 	const RBT = __webpack_require__(3);
 	
 	document.addEventListener("DOMContentLoaded", () => {
-	  const tree = new RBT();
+	  // const tree = new RBT();
+	  let tree = new RBT();
 	
 	  window.tree = tree;
 	
-	  // tree.add(2);
-	  // tree.add(1);
-	  // tree.add(4);
-	  // tree.add(5);
-	  // tree.add(9);
-	  // tree.add(3);
-	  // tree.add(6);
-	  // $('.forest').html(tree.print());
+	  tree.add(2);
+	  tree.add(1);
+	  tree.add(4);
+	  tree.add(5);
+	  tree.add(9);
+	  tree.add(3);
+	  tree.add(6);
+	  tree.add(7);
+	  $('.forest').html(tree.print());
+	  $('.forest-diagram').html(tree.printDiagram());
 	
 	  $('.add-node').on("submit", (e) => {
 	    e.preventDefault();
 	    tree.add(parseInt($('.val-to-add')[0].value));
 	    $('.val-to-add')[0].value = '';
 	    $('.forest').html(tree.print());
+	    $('.forest-diagram').html(tree.printDiagram());
+	  });
+	
+	  $('.delete-node').on("submit", (e) => {
+	    e.preventDefault();
+	    tree.deleteVal(parseInt($('.val-to-delete')[0].value));
+	    $('.val-to-delete')[0].value = '';
+	    $('.forest').html(tree.print());
+	    $('.forest-diagram').html(tree.printDiagram());
+	  });
+	
+	  $('.clear').on("click", () => {
+	    tree.clear();
+	    $('.forest').html(tree.print());
+	    $('.forest-diagram').html(tree.printDiagram());
+	  });
+	
+	  $('.bst-toggle').on("click", () => {
+	    $('.bst-display').toggleClass('hidden');
+	    if (tree.constructor.name === 'BST') {
+	      tree = new RBT();
+	      $('.delete-node').addClass('hidden');
+	    } else {
+	      tree = new BST();
+	      $('.delete-node').removeClass('hidden');
+	
+	    }
+	
+	    tree.add(2);
+	    tree.add(1);
+	    tree.add(4);
+	    tree.add(5);
+	    tree.add(9);
+	    tree.add(3);
+	    tree.add(6);
+	    tree.add(7);
+	    $('.forest').html(tree.print());
+	    $('.forest-diagram').html(tree.printDiagram());
 	  });
 	
 	});
@@ -82,6 +123,10 @@
 	    this.root = null;
 	  }
 	
+	  clear() {
+	    this.root = null;
+	  }
+	
 	  add(node) {
 	    let nodeToAdd = this.getTreeNodeObj(node);
 	    if (this.root) {
@@ -94,8 +139,19 @@
 	  }
 	
 	  print() {
-	    // this.root.print();
-	    return this.root.print();
+	    if (this.root) {
+	      return this.root.print();
+	    } else {
+	      return '';
+	    }
+	  }
+	
+	  printDiagram() {
+	    if (this.root) {
+	      return this.root.printDiagram();
+	    } else {
+	      return '';
+	    }
 	  }
 	
 	  find(value) {
@@ -111,6 +167,47 @@
 	      nodeLike = new TreeNode(nodeVal);
 	    }
 	    return nodeLike;
+	  }
+	
+	  deleteVal(nodeVal) {
+	    let toDelete = this.root.find(nodeVal);
+	    this.delete(toDelete);
+	  }
+	
+	  delete(node) {
+	    if (node.leftChild && node.rightChild) {
+	      let minChild = this.min(node);
+	      node.setVal(minChild.value);
+	      this.delete(minChild);
+	    } else if (node.leftChild) {
+	      if (node.parent.leftChild === node) {
+	        node.parent.setLeftChild(node.leftChild);
+	      } else {
+	        node.parent.setRightChild(node.leftChild);
+	      }
+	    } else if (node.rightChild){
+	      if (node.parent.leftChild === node) {
+	        node.parent.setLeftChild(node.rightChild);
+	      } else {
+	        node.parent.setRightChild(node.rightChild);
+	      }
+	    } else {
+	      if (node.parent.leftChild === node) {
+	        node.parent.setLeftChild(null);
+	      } else {
+	        node.parent.setRightChild(null);
+	      }
+	
+	      // no children
+	    }
+	  }
+	
+	  min(node) {
+	    if (node.leftChild) {
+	      return this.min(node.leftChild);
+	    } else {
+	      return node;
+	    }
 	  }
 	}
 	
@@ -139,6 +236,22 @@
 	      toprint += this.rightChild.print();
 	    }
 	    return toprint+')';
+	  }
+	
+	  setVal(value) {
+	    this.value = value;
+	  }
+	
+	  printDiagram() {
+	    let toprint = '';
+	    if (this.leftChild) {
+	      toprint += this.leftChild.printDiagram();
+	    }
+	    toprint += ` <div class='nodeval'>${this.value}</div> `;
+	    if (this.rightChild) {
+	      toprint += this.rightChild.printDiagram();
+	    }
+	    return `<div class='node'> ${toprint} </div>`;
 	  }
 	
 	  setParent(parent) {
@@ -272,31 +385,33 @@
 	        }
 	      } else {
 	        let rotationType = this.findCase(node);
-	        switch(rotationType) {
-	          case 'RR':
-	            this.leftRotate(node.parent);
-	            node.parent.colorSwap(node.parent.leftChild);
-	            break;
-	          case 'LL':
-	            this.rightRotate(node.parent);
-	            node.parent.colorSwap(node.parent.rightChild);
-	            break;
-	          case 'LR':
-	            this.leftRotate(node);
-	            this.rightRotate(node);
-	            node.colorSwap(node.rightChild);
-	            break;
-	          case 'RL':
-	            this.rightRotate(node);
-	            this.leftRotate(node);
-	            node.colorSwap(node.leftChild);
-	            break;
-	          default:
-	            debugger
-	        }
+	        this.treeRotate(node, rotationType);
 	      }
 	    }
 	    this.root.colorBlack();
+	  }
+	
+	  treeRotate(node, rotationType) {
+	    switch(rotationType) {
+	      case 'RR':
+	        this.leftRotate(node.parent);
+	        node.parent.colorSwap(node.parent.leftChild);
+	        break;
+	      case 'LL':
+	        this.rightRotate(node.parent);
+	        node.parent.colorSwap(node.parent.rightChild);
+	        break;
+	      case 'LR':
+	        this.leftRotate(node);
+	        this.rightRotate(node);
+	        node.colorSwap(node.rightChild);
+	        break;
+	      case 'RL':
+	        this.rightRotate(node);
+	        this.leftRotate(node);
+	        node.colorSwap(node.leftChild);
+	        break;
+	    }
 	  }
 	
 	  getRBNodeObj(nodeVal) {
@@ -363,6 +478,18 @@
 	      toprint += this.rightChild.print();
 	    }
 	    return toprint+')';
+	  }
+	
+	  printDiagram() {
+	    let toprint = '';
+	    if (this.leftChild) {
+	      toprint += this.leftChild.printDiagram();
+	    }
+	    toprint += ` <div class='nodeval ${this.color}'>${this.value}</div> `;
+	    if (this.rightChild) {
+	      toprint += this.rightChild.printDiagram();
+	    }
+	    return `<div class='node'>${toprint}</div>`;
 	  }
 	
 	}

@@ -2,13 +2,73 @@ strong.r {
   color:red;
 }
 
-.val-to-add {
+.button {
+  color: white;
+  float: right;
+  background: red;
+  font-size: 14px;
+  margin-left: 20px;
+}
+
+.button:hover {
+  cursor: pointer;
+  background: darkred;
+}
+
+.clear {
+  padding: 10px;
+}
+
+.bst-btn {
+  padding: 10px;
+  background: blue;
+}
+
+.rbt-btn {
+  padding: 10px;
+}
+
+.hidden {
+  display: none;
+}
+
+.node {
+  display: flex;
+  margin-top: 40px;
+  padding: 10px;
+}
+
+.nodeval {
+  background: white;
+  border: 1px solid black;
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  padding: 5px;
+}
+
+.nodeval.b {
+  color: white;
+  background:black;
+}
+
+.nodeval.r {
+  color:white;
+  background:red;
+}
+
+.node-form {
+  float: left;
+  margin-right: 20px;
+}
+
+.val-to {
   width: 100px;
   border: 1px solid black;
   padding: 5px;
 }
 
-.val-to-add-submit {
+.val-to-submit {
   padding: 10px;
   font-size: 14px;
   border-radius: 5px;
@@ -16,17 +76,19 @@ strong.r {
 }
 
 .the-world {
-  width: 500px;
+  width: 700px;
   margin: 20px auto;
   font-family: sans-serif;
   font-size: 20px;
 }
 
-.forest {
+.forest,
+.forest-diagram {
   padding: 10px;
   background: lightblue;
-  width: 500px;
+  width: 700px;
   margin: 10px auto;
   text-align: center;
   border-radius: 5px;
+  overflow: scroll;
 }
