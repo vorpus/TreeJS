@@ -61,12 +61,20 @@
 	  tree.add(3);
 	  tree.add(6);
 	  tree.add(7);
+	  // tree.add(30);
+	  // tree.add(20);
+	  // tree.add(40);
+	  // tree.add(10);
 	  $('.forest').html(tree.print());
 	  $('.forest-diagram').html(tree.printDiagram());
 	
 	  $('.add-node').on("submit", (e) => {
 	    e.preventDefault();
-	    tree.add(parseInt($('.val-to-add')[0].value));
+	    let newVal = $('.val-to-add')[0].value;
+	    if (newVal === '') {
+	      return;
+	    }
+	    tree.add(parseInt(newVal));
 	    $('.val-to-add')[0].value = '';
 	    $('.forest').html(tree.print());
 	    $('.forest-diagram').html(tree.printDiagram());
@@ -170,8 +178,10 @@
 	  }
 	
 	  deleteVal(nodeVal) {
-	    let toDelete = this.root.find(nodeVal);
-	    this.delete(toDelete);
+	    let toDelete = this.find(nodeVal);
+	    if (toDelete.value === nodeVal) {
+	      this.delete(toDelete);
+	    }
 	  }
 	
 	  delete(node) {
@@ -197,8 +207,6 @@
 	      } else {
 	        node.parent.setRightChild(null);
 	      }
-	
-	      // no children
 	    }
 	  }
 	
@@ -423,6 +431,7 @@
 	    }
 	    return nodeLike;
 	  }
+	
 	
 	}
 	

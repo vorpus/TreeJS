@@ -1,3 +1,8 @@
+body {
+  background: #100000;
+  font-family: sans-serif;
+}
+
 strong.r {
   color:red;
 }
@@ -63,6 +68,7 @@ strong.r {
 }
 
 .val-to {
+  background: white;
   width: 100px;
   border: 1px solid black;
   padding: 5px;
@@ -78,7 +84,6 @@ strong.r {
 .the-world {
   width: 700px;
   margin: 20px auto;
-  font-family: sans-serif;
   font-size: 20px;
 }
 
@@ -91,4 +96,12 @@ strong.r {
   text-align: center;
   border-radius: 5px;
   overflow: scroll;
+}
+
+.forest {
+  height: 50px;
+}
+
+.forest-diagram {
+  height: 500px;
 }
