@@ -1,10 +1,53 @@
 body {
   background: #100000;
   font-family: sans-serif;
+  color: white;
 }
 
 strong.r {
   color:red;
+}
+
+a {
+  text-decoration: underline;
+}
+
+li {
+  list-style: circle;
+  margin-bottom: 5px;
+}
+
+input {
+  color: black;
+}
+
+.title {
+  font-size: 48px;
+}
+
+.heading {
+  position: relative;
+}
+
+.heading-right {
+  position: absolute;
+  font-size: 14px;
+  top: 10px;
+  right: 0;
+}
+
+.heading-right div {
+  margin: 5px;
+}
+
+.title {
+  margin-top: 15px;
+  font-size: 48px;
+}
+
+.subtitle {
+  margin-bottom: 20px;
+  font-size: 18px;
 }
 
 .button {
@@ -89,6 +132,7 @@ strong.r {
 
 .forest,
 .forest-diagram {
+  color: black;
   padding: 10px;
   background: lightblue;
   width: 700px;
@@ -104,4 +148,15 @@ strong.r {
 
 .forest-diagram {
   height: 500px;
+}
+
+
+.below-canvas {
+  font-size: 16px;
+  line-height: 18px;
+}
+
+.below-canvas .heading {
+  font-size: 24px;
+  margin: 10px 0;
 }

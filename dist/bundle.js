@@ -396,7 +396,6 @@
 	  }
 	
 	  treeRotate(node, rotationType) {
-	    console.log(rotationType);
 	    switch(rotationType) {
 	      case 'RR':
 	        this.leftRotate(node.parent);
@@ -407,13 +406,11 @@
 	        node.parent.colorSwap(node.parent.rightChild);
 	        break;
 	      case 'LR':
-	        console.log('lr');
 	        this.leftRotate(node);
 	        this.rightRotate(node);
 	        node.colorSwap(node.rightChild);
 	        break;
 	      case 'RL':
-	        console.log('rl');
 	        this.rightRotate(node);
 	        this.leftRotate(node);
 	        node.colorSwap(node.leftChild);

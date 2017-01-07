@@ -14,6 +14,27 @@
   </head>
   <body>
     <div class="the-world">
+      <div class="heading group">
+        <div class="title">
+          BST JS
+        </div>
+        <div class="subtitle">
+          O(logN) lookup, Ө(N!) fun.
+        </div>
+
+        <div class="heading-right group">
+          <div class="heading-right-item">
+            <a href="http://lizha.ng/">Website</a>
+          </div>
+          <div class="heading-right-item">
+            <a href="https://github.com/vorpus/">Github</a>
+          </div>
+          <div class="heading-right-item">
+            <a href="https://www.linkedin.com/in/zhangio">Linkedin</a>
+          </div>
+        </div>
+      </div>
+
       <div class="all-forms group">
         <div class="node-form">
           <form class="add-node">
@@ -45,6 +66,54 @@
 
       <div class="forest"></div>
       <div class="forest-diagram"></div>
+
+      <div class="below-canvas">
+        <div class="about">
+            The default trees have the following elements inserted
+            in order: [2, 1, 4, 5, 9, 3, 6, 7]
+            <br>
+            Try it out yourself! Watch how the Red-Black tree rearranges
+            itself to maintain a shorter height than the vanilla BST.
+            <div class="heading">
+              What's going on here?
+            </div>
+            <p>A <b>Binary Search Tree</b> (BST) is a data structure that is
+              known for its quick and generally predictable behavior in
+              searching, sorting, insertion, and deletion. It differs
+              a Binary Tree in that the value of an element's left child
+              is lesser and the value of an element's right child is
+              always greater.
+            </p>
+            <br>
+            <p>If BST nodes are inserted in a specific order, the tree
+              will essentially become a linked list and lose its
+              quick lookup properties. Tree rotations allow us to maintain
+              a reasonable tree height while maintaing its BST properties.
+              Some BST's with special properties have been created to
+              use rotations to solve this problem. The most common are
+              listed below.
+              <ol>
+                <li><b>AVL trees</b> require all nodes be balanced, where the
+                  difference in heights of child nodes is no more than 1.
+                  This results in guaranteed O(logN) lookup.
+                </li>
+                <li><b>Red-Black trees</b> (implemented here) require
+                  all nodes to be approximately balanced using specific
+                  <a href="https://en.wikipedia.org/wiki/Red%E2%80%93black_tree#Properties">properties</a>.
+                  The less rigorous balance constraints result in slower
+                  lookup than AVL trees but faster insertion and deletion operations.
+                 </li>
+                <li><b>Splay trees</b> rotate recently added or searched
+                  elements to the root of the BST. This results in extremely
+                  fast lookup for data that is frequently accessed.
+                </li>
+              </ol>
+              Find more on my <a href="https://github.com/vorpus/TreeJS" target="_blank">Github (readme)</a>!
+              <br>
+              Try running the <a href="https://vorpus.github.io/TreeJS/SpecRunner.html">Jasmine tests</a>!
+            </p>
+          </div>
+      </div>
     </div>
 
   </body>
