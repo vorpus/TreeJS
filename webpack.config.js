@@ -2,11 +2,13 @@ const path = require("path");
 
 module.exports = {
   context: __dirname,
-  entry: "./lib/main.js",
+  entry: {
+    bundle: "./lib/main.js",
+    spec: "./spec/treeSpecs.js"
+    },
   output: {
-    filename: "bundle.js",
-    devtoolModuleFilenameTemplate: '[resourcePath]',
-    devtoolFallbackModuleFilenameTemplate: '[resourcePath]?[hash]'
+    path: __dirname + "/dist",
+    filename: "[name].js",
   },
   externals: {
     "jquery": "jQuery"

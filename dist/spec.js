@@ -44,80 +44,11 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	const BST = __webpack_require__(1);
-	const RBT = __webpack_require__(3);
 	
-	document.addEventListener("DOMContentLoaded", () => {
-	  // const tree = new RBT();
-	  let tree = new RBT();
-	
-	  window.tree = tree;
-	
-	  tree.add(2);
-	  tree.add(1);
-	  tree.add(4);
-	  tree.add(5);
-	  tree.add(9);
-	  tree.add(3);
-	  tree.add(6);
-	  tree.add(7);
-	  // tree.add(30);
-	  // tree.add(20);
-	  // tree.add(40);
-	  // tree.add(10);
-	  $('.forest').html(tree.print());
-	  $('.forest-diagram').html(tree.printDiagram());
-	
-	  $('.add-node').on("submit", (e) => {
-	    e.preventDefault();
-	    let newVal = $('.val-to-add')[0].value;
-	    if (newVal === '') {
-	      return;
-	    }
-	    tree.add(parseInt(newVal));
-	    $('.val-to-add')[0].value = '';
-	    $('.forest').html(tree.print());
-	    $('.forest-diagram').html(tree.printDiagram());
-	  });
-	
-	  $('.delete-node').on("submit", (e) => {
-	    e.preventDefault();
-	    tree.deleteVal(parseInt($('.val-to-delete')[0].value));
-	    $('.val-to-delete')[0].value = '';
-	    $('.forest').html(tree.print());
-	    $('.forest-diagram').html(tree.printDiagram());
-	  });
-	
-	  $('.clear').on("click", () => {
-	    tree.clear();
-	    $('.forest').html(tree.print());
-	    $('.forest-diagram').html(tree.printDiagram());
-	  });
-	
-	  $('.bst-toggle').on("click", () => {
-	    $('.bst-display').toggleClass('hidden');
-	    if (tree.constructor.name === 'BST') {
-	      tree = new RBT();
-	      $('.delete-node').addClass('hidden');
-	    } else {
-	      tree = new BST();
-	      $('.delete-node').removeClass('hidden');
-	
-	    }
-	
-	    tree.add(2);
-	    tree.add(1);
-	    tree.add(4);
-	    tree.add(5);
-	    tree.add(9);
-	    tree.add(3);
-	    tree.add(6);
-	    tree.add(7);
-	    $('.forest').html(tree.print());
-	    $('.forest-diagram').html(tree.printDiagram());
-	  });
-	
-	});
+	__webpack_require__(5);
+	__webpack_require__(6);
+	__webpack_require__(7);
+	__webpack_require__(8);
 
 
 /***/ },
@@ -400,6 +331,7 @@
 	  }
 	
 	  treeRotate(node, rotationType) {
+	    console.log(rotationType);
 	    switch(rotationType) {
 	      case 'RR':
 	        this.leftRotate(node.parent);
@@ -410,11 +342,13 @@
 	        node.parent.colorSwap(node.parent.rightChild);
 	        break;
 	      case 'LR':
+	        console.log('lr');
 	        this.leftRotate(node);
 	        this.rightRotate(node);
 	        node.colorSwap(node.rightChild);
 	        break;
 	      case 'RL':
+	        console.log('rl');
 	        this.rightRotate(node);
 	        this.leftRotate(node);
 	        node.colorSwap(node.leftChild);
@@ -506,6 +440,194 @@
 	module.exports = RBNode;
 
 
+/***/ },
+/* 5 */
+/***/ function(module, exports, __webpack_require__) {
+
+	const TreeNode = __webpack_require__(2)
+	describe("BST Node", function() {
+	  var nodeF; var nodeT; var nodeFF; var nodeST;
+	
+	  beforeEach(function() {
+	    nodeF = new TreeNode(5);
+	    nodeT = new TreeNode(10);
+	    nodeFF = new TreeNode(15);
+	    nodeST = new TreeNode(17);
+	  });
+	
+	  it("should initialize with a value and no children", function() {
+	    expect(nodeF.value).toEqual(5);
+	    expect(nodeT.value).toEqual(10);
+	  });
+	
+	  it("should append smaller nodes left", function() {
+	    nodeT.append(nodeF);
+	    expect(nodeT.leftChild).toEqual(nodeF);
+	    expect(nodeT.rightChild).toEqual(null)
+	  });
+	
+	  it("should append larger nodes right", function() {
+	    nodeF.append(nodeT);
+	    expect(nodeF.leftChild).toEqual(null);
+	    expect(nodeF.rightChild).toEqual(nodeT);
+	  });
+	
+	  it("should recursively look for children nodes", function() {
+	    nodeF.append(nodeFF);
+	    nodeFF.append(nodeST);
+	    nodeFF.append(nodeT);
+	    expect(nodeF.find(17)).toEqual(nodeST);
+	  });
+	
+	});
+
+
+/***/ },
+/* 6 */
+/***/ function(module, exports, __webpack_require__) {
+
+	const BST = __webpack_require__(1)
+	const TreeNode = __webpack_require__(2)
+	
+	describe("Binary Search Tree", function() {
+	  var bst;
+	
+	  beforeEach(function() {
+	    bst = new BST();
+	  });
+	
+	  it("initializes as empty tree with no nodes", function() {
+	    expect(bst.root).toEqual(null);
+	  });
+	
+	  it("assigns a new node on an empty tree to root", function() {
+	    bst.add(4);
+	    expect(bst.root.value).toEqual(4);
+	  });
+	
+	  it("uses find() to traverse child nodes", function() {
+	    bst.add(4);
+	    bst.add(2);
+	    bst.add(3);
+	    bst.add(5);
+	    expect(bst.find(5).value).toEqual(5);
+	  });
+	
+	  it("returns the logical parent if a node is not found", function() {
+	    bst.add(4);
+	    bst.add(2);
+	    expect(bst.find(1).value).toEqual(2);
+	  })
+	
+	  it("adds additional nodes if given a value or a node element", function() {
+	    let nodeToAdd = new TreeNode(5);
+	    bst.add(1);
+	    bst.add(nodeToAdd);
+	    expect(bst.find(1).value).toEqual(1);
+	    expect(bst.find(5).value).toEqual(5);
+	  });
+	
+	});
+
+
+/***/ },
+/* 7 */
+/***/ function(module, exports, __webpack_require__) {
+
+	const TreeNode = __webpack_require__(2)
+	const RBNode = __webpack_require__(4)
+	
+	describe("Red Black Node", function() {
+	  var node;
+	
+	  beforeEach(function() {
+	    node = new RBNode(5);
+	  });
+	
+	  it("extends a binary tree node", function() {
+	    expect(node instanceof TreeNode).toBeTruthy();
+	  });
+	
+	  it("should have a color and a value", function() {
+	    expect(node.value).toEqual(5);
+	    expect(node.color).not.toEqual(null)
+	  });
+	
+	
+	
+	});
+
+
+/***/ },
+/* 8 */
+/***/ function(module, exports, __webpack_require__) {
+
+	const BST = __webpack_require__(1);
+	const RBNode = __webpack_require__(4)
+	const RBT = __webpack_require__(3)
+	
+	describe("Red Black Tree", function() {
+	  var rbt;
+	
+	  beforeEach(function() {
+	    rbt = new RBT();
+	  });
+	
+	  it("extends binary search tree", function() {
+	    expect(rbt instanceof BST).toBeTruthy();
+	  });
+	
+	  it("ensures the last node added is always red", function() {
+	    rbt.add(5);
+	    rbt.add(3);
+	    expect(rbt.find(3).color).toEqual('r');
+	    rbt.add(1);
+	    expect(rbt.find(1).color).toEqual('r');
+	    rbt.add(7);
+	    expect(rbt.find(7).color).toEqual('r');
+	  });
+	
+	  it("performs a left rotation if node is right child of parent and parent is right child of grandparent", function() {
+	    rbt.add(5);
+	    rbt.add(6);
+	    rbt.add(7);
+	    expect(rbt.root.value).toEqual(6);
+	  });
+	
+	  it("performs a right rotation if node is left child of parent and parent is left child of grandparent", function() {
+	    rbt.add(5);
+	    rbt.add(4);
+	    rbt.add(3);
+	    expect(rbt.root.value).toEqual(4);
+	  });
+	
+	  it("recolors to maintain red-black constraints after rotations", function() {
+	    rbt.add(5);
+	    rbt.add(4);
+	    rbt.add(3);
+	    expect(rbt.find(5).color).toEqual('r');
+	    expect(rbt.find(3).color).toEqual('r');
+	    expect(rbt.find(4).color).toEqual('b');
+	  });
+	
+	  it("correctly handles complex R-L and L-R rotations", function() {
+	    rbt.add(2);
+	    rbt.add(1);
+	    rbt.add(4);
+	    rbt.add(5);
+	    rbt.add(9);
+	    rbt.add(3);
+	    rbt.add(6);
+	    rbt.add(7);
+	    expect(rbt.root.value).toEqual(2);
+	    expect(rbt.find(6).color).toEqual('r');
+	    expect(rbt.find(6).leftChild).toEqual(null);
+	    expect(rbt.find(4).color).toEqual('b');
+	    expect(rbt.find(4).leftChild.value).toEqual(3);
+	  })
+	});
+
+
 /***/ }
 /******/ ]);
-//# sourceMappingURL=bundle.js.map
+//# sourceMappingURL=spec.js.map
